@@ -363,7 +363,8 @@ public abstract class BaseRepresentor<T> {
 	 * @param  key the field's name
 	 * @param  transformFunction the function that transforms the model into the
 	 *         list whose models are used inside the nested representor
-	 * @param  function the function that creates the nested representor for each model
+	 * @param  function the function that creates the nested representor for
+	 *         each model
 	 * @review
 	 */
 	protected <S> void addNestedListField(
@@ -641,8 +642,10 @@ public abstract class BaseRepresentor<T> {
 			 *
 			 * @param  key the field's name
 			 * @param  transformFunction the function that transforms the model
-			 *         into the list whose models are used inside the nested representor
-			 * @param  function the function that creates the nested representor for each model
+			 *         into the list whose models are used inside the nested
+			 *         representor
+			 * @param  function the function that creates the nested representor
+			 *         for each model
 			 * @return the builder's step
 			 */
 			public <W> U addNestedList(

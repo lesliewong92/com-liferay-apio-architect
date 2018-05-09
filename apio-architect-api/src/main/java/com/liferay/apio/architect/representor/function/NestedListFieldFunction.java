@@ -37,8 +37,8 @@ public class NestedListFieldFunction<T, S> {
 	}
 
 	/**
-	 * The function that transforms the model into the list whose values are used in the {@code
-	 * NestedRepresentor#Builder}.
+	 * The function that transforms the model into the list whose values are
+	 * used in the {@code NestedRepresentor#Builder}.
 	 *
 	 * @review
 	 */
