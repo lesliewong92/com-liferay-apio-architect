@@ -207,7 +207,10 @@ public class JSONObjectBuilderTest {
 		_jsonObjectBuilder.field(
 			"first"
 		).ifElseCondition(
-			false, builder -> builder.field("true"),
+			false,
+			builder -> {
+				return builder.field("true");
+			},
 			builder -> builder.field("solution")
 		).numberValue(
 			42
@@ -271,7 +274,10 @@ public class JSONObjectBuilderTest {
 		_jsonObjectBuilder.field(
 			"first"
 		).ifElseCondition(
-			true, builder -> builder.field("solution"),
+			true,
+			builder -> {
+				return builder.field("solution");
+			},
 			builder -> builder.field("false")
 		).numberValue(
 			42

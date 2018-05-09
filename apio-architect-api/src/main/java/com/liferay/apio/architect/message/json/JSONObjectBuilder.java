@@ -422,6 +422,31 @@ public class JSONObjectBuilder {
 		}
 
 		/**
+		 * Creates a new JSON object field, where the resulting field
+		 * step is conditional. If the condition is met, this method adds the
+		 * field created by {@code ifConsumer}. Otherwise, this method
+		 * adds the field created by {@code elseConsumer}.
+		 *
+		 * @param  condition the condition to check
+		 * @param  ifConsumer the function that creates the field step if the
+		 *         condition is {@code true}
+		 * @param  elseConsumer the function that creates the field step if the
+		 *         condition is {@code false}
+		 * @return the builder's field step
+		 */
+		public void ifElseCondition(
+			boolean condition, Consumer<FieldStep> ifConsumer,
+			Consumer<FieldStep> elseConsumer) {
+
+			if (condition) {
+				ifConsumer.accept(this);
+			}
+			else {
+				elseConsumer.accept(this);
+			}
+		}
+
+		/**
 		 * Begins creating a new JSON object field, where the resulting field
 		 * step is conditional. If the condition is met, this method returns the
 		 * field step created by {@code ifFunction}. Otherwise, this method
