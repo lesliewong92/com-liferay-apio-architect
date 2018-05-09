@@ -248,9 +248,12 @@ public class JSONLDSingleModelMessageMapper<T>
 			embeddedPathElements.head(), tailStream.toArray(String[]::new)
 		).field(
 			FIELD_NAME_TYPE
-		).arrayValue(
-		).addAllStrings(
-			types
+		).ifElseCondition(
+			types.size() == 1,
+			builder -> {
+				builder.stringValue(types.get(0));
+			},
+			builder -> builder.arrayValue().addAllStrings(types)
 		);
 	}
 
@@ -434,9 +437,12 @@ public class JSONLDSingleModelMessageMapper<T>
 
 		jsonObjectBuilder.field(
 			FIELD_NAME_TYPE
-		).arrayValue(
-		).addAllStrings(
-			types
+		).ifElseCondition(
+			types.size() == 1,
+			builder -> {
+				builder.stringValue(types.get(0));
+			},
+			builder -> builder.arrayValue().addAllStrings(types)
 		);
 	}
 

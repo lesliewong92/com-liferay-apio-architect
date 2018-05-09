@@ -115,7 +115,9 @@ public class HALSingleModelMessageMapper<T>
 			).field(
 				optional.get()
 			),
-			builder -> builder.field(head)
+			builder -> {
+				return builder.field(head);
+			}
 		).nestedField(
 			"_links", fieldName, "href"
 		).stringValue(
@@ -317,7 +319,9 @@ public class HALSingleModelMessageMapper<T>
 			).field(
 				optional.get()
 			),
-			builder -> builder.field(head)
+			builder -> {
+				return builder.field(head);
+			}
 		).field(
 			fieldName
 		);

@@ -178,15 +178,13 @@ public class JSONLDPageMessageMapper<T> implements PageMessageMapper<T> {
 
 		jsonObjectBuilder.nestedField(
 			FIELD_NAME_VIEW, FIELD_NAME_TYPE
-		).arrayValue(
-		).addString(
+		).stringValue(
 			TYPE_PARTIAL_COLLECTION_VIEW
 		);
 
 		jsonObjectBuilder.field(
 			FIELD_NAME_TYPE
-		).arrayValue(
-		).addString(
+		).stringValue(
 			TYPE_COLLECTION
 		);
 	}
