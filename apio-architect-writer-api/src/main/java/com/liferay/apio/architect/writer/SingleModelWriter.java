@@ -809,6 +809,10 @@ public class SingleModelWriter<T> {
 
 				Object mappedModel = nestedMapper.apply(singleModel.getModel());
 
+				if (mappedModel == null) {
+					return;
+				}
+
 				FunctionalList<String> embeddedNestedPathElements =
 					new FunctionalList<>(
 						embeddedPathElements, nestedFieldFunction.key);
@@ -841,6 +845,10 @@ public class SingleModelWriter<T> {
 				Function<U, ?> nestedMapper = nestedFieldFunction.function;
 
 				Object mappedModel = nestedMapper.apply(singleModel.getModel());
+
+				if (mappedModel == null) {
+					return;
+				}
 
 				FunctionalList<String> embeddedNestedPathElements =
 					new FunctionalList<>(
