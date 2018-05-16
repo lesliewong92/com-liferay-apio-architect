@@ -47,6 +47,8 @@ public class Operation {
 		return Optional.ofNullable(_form);
 	}
 
+	public boolean custom;
+
 	/**
 	 * The operation's method.
 	 */

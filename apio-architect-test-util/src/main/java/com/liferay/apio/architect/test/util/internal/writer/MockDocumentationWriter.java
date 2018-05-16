@@ -61,12 +61,12 @@ public class MockDocumentationWriter {
 
 		CollectionRoutes.Builder<String> builder1 =
 			new CollectionRoutes.Builder<>(
-				"name", null,
+				"name", null, null,
 				__ -> {
 				});
 
 		ItemRoutes.Builder builder2 = new ItemRoutes.Builder<>(
-			"name", null,
+			"name", null, null,
 			__ -> {
 			});
 

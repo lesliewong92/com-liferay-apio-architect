@@ -11,6 +11,7 @@ Export-Package:\
 	com.liferay.apio.architect.consumer.throwable,\
 	com.liferay.apio.architect.converter,\
 	com.liferay.apio.architect.credentials,\
+	com.liferay.apio.architect.customactions,\
 	com.liferay.apio.architect.date,\
 	com.liferay.apio.architect.documentation,\
 	com.liferay.apio.architect.endpoint,\

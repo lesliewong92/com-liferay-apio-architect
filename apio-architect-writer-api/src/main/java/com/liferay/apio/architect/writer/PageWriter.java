@@ -18,6 +18,7 @@ import static com.liferay.apio.architect.writer.url.URLCreator.createCollectionP
 import static com.liferay.apio.architect.writer.url.URLCreator.createCollectionURL;
 import static com.liferay.apio.architect.writer.url.URLCreator.createFormURL;
 import static com.liferay.apio.architect.writer.url.URLCreator.createNestedCollectionURL;
+import static com.liferay.apio.architect.writer.url.URLCreator.createOperationURL;
 import static com.liferay.apio.architect.writer.util.WriterUtil.getFieldsWriter;
 import static com.liferay.apio.architect.writer.util.WriterUtil.getPathOptional;
 
@@ -135,6 +136,11 @@ public class PageWriter<T> {
 					formURL -> _pageMessageMapper.mapOperationFormURL(
 						_jsonObjectBuilder, operationJSONObjectBuilder, formURL)
 				);
+
+				_pageMessageMapper.mapOperationTarget(
+					_jsonObjectBuilder, operationJSONObjectBuilder, //FIXME !
+					createOperationURL(
+						_requestInfo.getServerURL(), null, operation));
 
 				_pageMessageMapper.mapOperationMethod(
 					_jsonObjectBuilder, operationJSONObjectBuilder,

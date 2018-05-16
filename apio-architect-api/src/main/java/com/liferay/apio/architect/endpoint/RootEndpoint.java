@@ -43,6 +43,15 @@ public interface RootEndpoint {
 	public BinaryEndpoint binaryEndpoint();
 
 	/**
+	 * Returns the endpoint for custom operations.
+	 *
+	 * @return the endpoint
+	 */
+	@Path("/c/{name}")
+	public CustomOperationsEndpoint customOperationsEndpoint(
+		@PathParam("name") String name);
+
+	/**
 	 * Returns the application profile.
 	 *
 	 * @return the application profile

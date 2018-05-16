@@ -14,21 +14,20 @@
 
 package com.liferay.apio.architect.endpoint;
 
-import static com.liferay.apio.architect.endpoint.ExceptionSupplierUtil.notFound;
-
 import com.liferay.apio.architect.form.Form;
 import com.liferay.apio.architect.functional.Try;
 import com.liferay.apio.architect.routes.CollectionRoutes;
 import com.liferay.apio.architect.routes.ItemRoutes;
 import com.liferay.apio.architect.routes.NestedCollectionRoutes;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import static com.liferay.apio.architect.endpoint.ExceptionSupplierUtil.notFound;
 
 /**
  * Declares the endpoint for form operations.
@@ -44,7 +43,7 @@ public class FormEndpoint {
 			itemRoutesFunction,
 		BiFunction<String, String, Optional
 			<NestedCollectionRoutes<Object, Object>>>
-				nestedCollectionRoutesFunction) {
+			nestedCollectionRoutesFunction) {
 
 		_collectionRoutesFunction = collectionRoutesFunction;
 		_itemRoutesFunction = itemRoutesFunction;
@@ -90,6 +89,22 @@ public class FormEndpoint {
 			).flatMap(
 				NestedCollectionRoutes::getFormOptional
 			),
+			notFound(name, nestedName));
+	}
+
+	@GET
+	@Path("p/{name}/{nestedName}")
+	public Try<Form> myForm(
+		@PathParam("name") String name,
+		@PathParam("nestedName") String nestedName) {
+
+		return Try.fromOptional(
+			() -> _itemRoutesFunction.apply(
+				name
+			).map(
+				ItemRoutes::getCustomForms
+			).map(
+				stringFormMap -> stringFormMap.get(nestedName)),
 			notFound(name, nestedName));
 	}
 
