@@ -608,6 +608,19 @@ public interface PageMessageMapper<T> extends MessageMapper<Page<T>> {
 					pageJSONObjectBuilder, operationJSONObjectBuilder, method));
 	}
 
+	public default void mapOperationTarget(
+		JSONObjectBuilder pageJSONObjectBuilder,
+		JSONObjectBuilder operationJSONObjectBuilder, String url) {
+
+		Optional<SingleModelMessageMapper<T>> optional =
+			getSingleModelMessageMapperOptional();
+
+		optional.ifPresent(
+			singleModelMessageMapper ->
+				singleModelMessageMapper.mapOperationTarget(
+					pageJSONObjectBuilder, operationJSONObjectBuilder, url));
+	}
+
 	/**
 	 * Maps the page count to its JSON object representation.
 	 *

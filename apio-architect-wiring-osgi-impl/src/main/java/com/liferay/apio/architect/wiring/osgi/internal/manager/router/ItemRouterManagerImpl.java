@@ -90,7 +90,8 @@ public class ItemRouterManagerImpl
 				Set<String> neededProviders = new TreeSet<>();
 
 				Builder<Object, Object> builder = new Builder<>(
-					name, curry(_providerManager::provideMandatory),
+					name, _nameManager::getNameOptional,
+					curry(_providerManager::provideMandatory),
 					neededProviders::add);
 
 				ItemRoutes<Object, Object> itemRoutes = itemRouter.itemRoutes(

@@ -303,6 +303,11 @@ public interface SingleModelMessageMapper<T>
 		JSONObjectBuilder operationJSONObjectBuilder, Method method) {
 	}
 
+	public default void mapOperationTarget(
+		JSONObjectBuilder pageJSONObjectBuilder,
+		JSONObjectBuilder operationJSONObjectBuilder, String url) {
+	}
+
 	/**
 	 * Maps a resource's URL to its JSON object representation.
 	 *

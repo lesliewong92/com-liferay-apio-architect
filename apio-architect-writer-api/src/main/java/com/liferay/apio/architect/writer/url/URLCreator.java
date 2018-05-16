@@ -15,6 +15,7 @@
 package com.liferay.apio.architect.writer.url;
 
 import com.liferay.apio.architect.form.Form;
+import com.liferay.apio.architect.operation.Operation;
 import com.liferay.apio.architect.pagination.Page;
 import com.liferay.apio.architect.pagination.PageType;
 import com.liferay.apio.architect.uri.Path;
@@ -101,6 +102,16 @@ public final class URLCreator {
 		ServerURL serverURL, Path path, String name) {
 
 		return String.join("/", serverURL.get(), "p", path.asURI(), name);
+	}
+
+	public static String createOperationURL(
+		ServerURL serverURL, Path path, Operation operation) {
+
+		String pathRoute = path == null ? "" : path.asURI();
+
+		return String.join(
+			"/", serverURL.get(), operation.custom ? "c" : "p", pathRoute,
+			operation.custom ? operation.name : "");
 	}
 
 	/**
