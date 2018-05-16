@@ -741,7 +741,7 @@ public class ItemRoutes<T, S> {
 			).filter(
 				function -> function.apply(credentials, identifier)
 			).ifPresent(
-				__ -> operations.add(new Operation(DELETE, _name + "/delete"))
+				__ -> operations.add(new Operation(DELETE, _name, "/delete"))
 			);
 
 			Optional.ofNullable(
@@ -750,7 +750,7 @@ public class ItemRoutes<T, S> {
 				function -> function.apply(credentials, identifier)
 			).ifPresent(
 				__ -> operations.add(
-					new Operation(_form, PUT, _name + "/update"))
+					new Operation(_form, PUT, _name, "/update"))
 			);
 
 			Optional.ofNullable(
@@ -766,12 +766,9 @@ public class ItemRoutes<T, S> {
 						FormedRoute formedRoute =
 							formedRouteBiFunctionEntry.getKey();
 
-//						String name = _name + "/" + formedRoute.getName();
-						String name = formedRoute.getName();
-
 						Operation e = new Operation(
 							formedRoute.getForm(), formedRoute.getMethod(),
-							name);
+							_name, formedRoute.getName());
 
 						e.custom = true;
 						operations.add(e);

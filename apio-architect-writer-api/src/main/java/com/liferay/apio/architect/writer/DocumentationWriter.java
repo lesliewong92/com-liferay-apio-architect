@@ -222,13 +222,13 @@ public class DocumentationWriter {
 		).findFirst();
 	}
 
-	private Operation _getOperation(
-		String operationName, Optional<Form> formOptional, Method method) {
+	private Operation _getOperation(Optional<Form> formOptional, Method method,
+		String path, String name) {
 
 		return formOptional.map(
-			form -> new Operation(form, method, operationName)
+			form -> new Operation(form, method, path, name)
 		).orElse(
-			new Operation(method, operationName)
+			new Operation(method, path, name)
 		);
 	}
 
@@ -322,24 +322,18 @@ public class DocumentationWriter {
 			itemRoutesMap.getOrDefault(name, null)
 		).ifPresent(
 			itemRoutes -> {
-				String getOperationName = name + "/retrieve";
-
-				Operation getOperation = new Operation(GET, getOperationName);
+				Operation getOperation = new Operation(GET, name, "/retrieve");
 
 				_writeOperation(getOperation, resourceJsonObjectBuilder, name);
 
-				String updateOperationName = name + "/update";
-
 				Operation updateOperation = _getOperation(
-					updateOperationName, itemRoutes.getFormOptional(), PUT);
+					itemRoutes.getFormOptional(), PUT, name, "/update");
 
 				_writeOperation(
 					updateOperation, resourceJsonObjectBuilder, name);
 
-				String deleteOperationName = name + "/delete";
-
 				Operation deleteOperation = new Operation(
-					DELETE, deleteOperationName);
+					DELETE, name, "/delete");
 
 				_writeOperation(
 					deleteOperation, resourceJsonObjectBuilder, name);
@@ -377,13 +371,11 @@ public class DocumentationWriter {
 		).ifPresent(
 			collectionRoutes -> {
 				_writeOperation(
-					new Operation(GET, resource), resourceJsonObjectBuilder,
+					new Operation(GET, resource, "/create"), resourceJsonObjectBuilder,
 					resource);
 
-				String operationName = resource + "/create";
-
 				Operation createOperation = _getOperation(
-					operationName, collectionRoutes.getFormOptional(), POST);
+					collectionRoutes.getFormOptional(), POST, resource, "/create");
 
 				_writeOperation(
 					createOperation, resourceJsonObjectBuilder, resource);

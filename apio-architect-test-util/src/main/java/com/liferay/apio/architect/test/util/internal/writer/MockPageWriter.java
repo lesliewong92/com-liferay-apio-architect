@@ -75,7 +75,7 @@ public class MockPageWriter {
 		Path path = new Path("name", "id");
 
 		List<Operation> operations = Collections.singletonList(
-			new Operation(createForm("c", "p"), POST, "create-operation"));
+			new Operation(createForm("c", "p"), POST, "create-operation", ""));
 
 		Page<RootModel> page = new Page<>(
 			"root", pageItems, pagination, path, operations);

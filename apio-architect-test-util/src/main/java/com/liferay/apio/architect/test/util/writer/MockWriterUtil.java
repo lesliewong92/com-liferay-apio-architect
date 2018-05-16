@@ -120,7 +120,7 @@ public class MockWriterUtil {
 
 		if (identifierClass.equals(FirstEmbeddedId.class)) {
 			List<Operation> operations = Collections.singletonList(
-				new Operation(DELETE, "delete-operation"));
+				new Operation(DELETE, "delete-operation", ""));
 
 			return Optional.of(
 				new SingleModel<>(

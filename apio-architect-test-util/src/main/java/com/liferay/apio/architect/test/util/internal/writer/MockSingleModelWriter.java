@@ -61,9 +61,9 @@ public class MockSingleModelWriter {
 
 		RequestInfo requestInfo = getRequestInfo(httpHeaders);
 
-		Operation deleteOperation = new Operation(DELETE, "delete-operation");
+		Operation deleteOperation = new Operation(DELETE, "delete-operation", "");
 		Operation putOperation = new Operation(
-			createForm("u", "r"), PUT, "update-operation");
+			createForm("u", "r"), PUT, "update-operation", "");
 
 		SingleModel<RootModel> singleModel = new SingleModel<>(
 			() -> "first", "root", asList(deleteOperation, putOperation));

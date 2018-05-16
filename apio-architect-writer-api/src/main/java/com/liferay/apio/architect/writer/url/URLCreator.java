@@ -107,7 +107,7 @@ public final class URLCreator {
 	public static String createOperationURL(
 		ServerURL serverURL, Path path, Operation operation) {
 
-		String pathRoute = path == null ? "" : path.asURI();
+		String pathRoute = path == null ? operation.path : path.asURI();
 
 		return String.join(
 			"/", serverURL.get(), operation.custom ? "c" : "p", pathRoute,

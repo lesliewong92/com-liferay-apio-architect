@@ -25,15 +25,18 @@ import java.util.Optional;
  */
 public class Operation {
 
-	public Operation(Form form, Method method, String name) {
+	public final String path;
+
+	public Operation(Form form, Method method, String path, String name) {
 		_form = form;
 
 		this.method = method;
+		this.path = path;
 		this.name = name;
 	}
 
-	public Operation(Method method, String name) {
-		this(null, method, name);
+	public Operation(Method method, String path, String name) {
+		this(null, method, path, name);
 	}
 
 	/**

@@ -512,7 +512,7 @@ public class NestedCollectionRoutes<T, S> {
 					credentials, identifier)
 			).map(
 				form -> new Operation(
-					form, POST, join("/", _name, _nestedName, "create"))
+					form, POST, join("/", _name, String.valueOf(identifier), _nestedName), "create")
 			).map(
 				Collections::singletonList
 			).orElseGet(

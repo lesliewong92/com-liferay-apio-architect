@@ -14,9 +14,6 @@
 
 package com.liferay.apio.architect.routes;
 
-import static com.liferay.apio.architect.operation.Method.POST;
-import static com.liferay.apio.architect.routes.RoutesBuilderUtil.provide;
-
 import com.liferay.apio.architect.alias.ProvideFunction;
 import com.liferay.apio.architect.alias.RequestFunction;
 import com.liferay.apio.architect.alias.form.FormBuilderFunction;
@@ -39,6 +36,7 @@ import com.liferay.apio.architect.pagination.PageItems;
 import com.liferay.apio.architect.pagination.Pagination;
 import com.liferay.apio.architect.single.model.SingleModel;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -49,7 +47,8 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import javax.servlet.http.HttpServletRequest;
+import static com.liferay.apio.architect.operation.Method.POST;
+import static com.liferay.apio.architect.routes.RoutesBuilderUtil.provide;
 
 /**
  * Holds information about the routes supported for a {@link
@@ -334,9 +333,9 @@ public class CollectionRoutes<T> {
 			String name = customRoute.getName();
 
 			RequestFunction requestFunction = httpServletRequest -> provide(
-				_provideFunction.apply((HttpServletRequest)httpServletRequest),
+				_provideFunction.apply((HttpServletRequest) httpServletRequest),
 				Pagination.class, Credentials.class,
-				pagination -> credentials -> ((ThrowableFunction<Pagination, PageItems>)throwableFunction).andThen(
+				pagination -> credentials -> ((ThrowableFunction<Pagination, PageItems>) throwableFunction).andThen(
 					items -> new Page(
 						_name, items, pagination, _getOperations(credentials))
 				).apply(
@@ -535,7 +534,7 @@ public class CollectionRoutes<T> {
 			).filter(
 				__ -> _collectionPermissionFunction.apply(credentials)
 			).map(
-				form -> new Operation(form, POST, _name + "/create")
+				form -> new Operation(form, POST, _name, "/create")
 			).map(
 				Collections::singletonList
 			).orElseGet(
@@ -555,12 +554,9 @@ public class CollectionRoutes<T> {
 						FormedRoute formedRoute =
 							formedRouteBiFunctionEntry.getKey();
 
-//						String name = _name + "/" + formedRoute.getName();
-						String name = formedRoute.getName();
-
 						Operation operation = new Operation(
 							formedRoute.getForm(), formedRoute.getMethod(),
-							name);
+							_name, formedRoute.getName());
 
 						operation.custom = true;
 						operations.add(operation);
@@ -586,12 +582,12 @@ public class CollectionRoutes<T> {
 							Optional<String> apply = _nameFunction.apply(
 								supplier.getName());
 
-								return new SingleModel(
-									t, apply.get(), Collections.emptyList());
-							}
-						).apply(
-							form.get(body)
-						));
+							return new SingleModel(
+								t, apply.get(), Collections.emptyList());
+						}
+					).apply(
+						form.get(body)
+					));
 
 			_customRouteFunction.put(name, createItemFunction);
 		}
