@@ -243,6 +243,88 @@ public class ItemRoutes<T, S> {
 
 			_customRouteFunction.put(name, collectionFunction);
 
+			return this;
+		}
+
+		public <A, B, C, F, E, I extends Identifier> Builder<T, S> addCustomRoute(
+			FormedRoute customRoute,
+			ThrowableTetraFunction<S, F, A, B, C> throwableTetraFunction,
+			Class<I> supplier,
+			BiFunction<Credentials, S, Boolean> permissionBiFunction,
+			FormBuilderFunction<F> formBuilderFunction, Class<A> aClass, Class<B> bClass) {
+
+			_neededProviderConsumer.accept(aClass.getName());
+			_neededProviderConsumer.accept(bClass.getName());
+
+			String name = customRoute.getName();
+
+			Form<F> form = formBuilderFunction.apply(
+				new Form.Builder<>(Arrays.asList("p", _name, name)));
+
+			customRoute.setForm(form);
+
+			_customForms.put(name, form);
+
+			_customItemPermissionFunction.put(
+				customRoute, permissionBiFunction);
+
+			RequestFunction<Function<S, Function<Body, Try<SingleModel<T>>>>>
+				collectionFunction =
+				httpServletRequest -> s -> body -> provide(
+					_provideFunction.apply(httpServletRequest), aClass, bClass,
+					a -> b -> throwableTetraFunction.andThen(
+						t -> {
+							Optional<String> apply = _nameFunction.apply(
+								supplier.getName());
+
+							return new SingleModel(
+								t, apply.get(), Collections.emptyList());
+						}
+					).apply(s, form.get(body), a, b));
+
+			_customRouteFunction.put(name, collectionFunction);
+
+			return this;
+		}
+
+		public <A, B, C, D, F, E, I extends Identifier> Builder<T, S> addCustomRoute(
+			FormedRoute customRoute,
+			ThrowablePentaFunction<S, F, A, B, C, D> throwableTetraFunction,
+			Class<I> supplier,
+			BiFunction<Credentials, S, Boolean> permissionBiFunction,
+			FormBuilderFunction<F> formBuilderFunction, Class<A> aClass, Class<B> bClass, Class<C> cClass) {
+
+			_neededProviderConsumer.accept(aClass.getName());
+			_neededProviderConsumer.accept(bClass.getName());
+			_neededProviderConsumer.accept(cClass.getName());
+
+			String name = customRoute.getName();
+
+			Form<F> form = formBuilderFunction.apply(
+				new Form.Builder<>(Arrays.asList("p", _name, name)));
+
+			customRoute.setForm(form);
+
+			_customForms.put(name, form);
+
+			_customItemPermissionFunction.put(
+				customRoute, permissionBiFunction);
+
+			RequestFunction<Function<S, Function<Body, Try<SingleModel<T>>>>>
+				collectionFunction =
+				httpServletRequest -> s -> body -> provide(
+					_provideFunction.apply(httpServletRequest), aClass, bClass, cClass,
+					a -> b -> c -> throwableTetraFunction.andThen(
+						t -> {
+							Optional<String> apply = _nameFunction.apply(
+								supplier.getName());
+
+							return new SingleModel(
+								t, apply.get(), Collections.emptyList());
+						}
+					).apply(s, form.get(body), a, b, c));
+
+			_customRouteFunction.put(name, collectionFunction);
 
 			return this;
 		}
